@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Embers of Kaldervale</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="game-container">
+        <!-- Header with location and time -->
+        <header id="game-header">
+            <h1 id="location-title">Embers of Kaldervale</h1>
+            <div id="time-display">
+                <span id="time-icon">🌅</span>
+                <span id="time-text">Day 1 - Dawn</span>
+            </div>
+            <div id="weather-display">
+                <span id="weather-icon">☀️</span>
+                <div id="weather-info">
+                    <span id="weather-text">Clear</span>
+                    <span id="weather-temp">Moderate</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Left column: what you have -->
+        <aside id="stores-column" aria-label="Stores">
+            <section id="resources-panel" class="panel">
+                <h2 class="panel-title">Stores</h2>
+                <div id="resources-list">
+                    <div class="resource-item">
+                        <span class="resource-name">Wood</span>
+                        <span class="resource-value" id="wood-count">0</span>
+                        <span class="resource-rate" id="wood-rate"></span>
+                    </div>
+                    <div class="resource-item">
+                        <span class="resource-name">Food</span>
+                        <span class="resource-value" id="food-count">0</span>
+                        <span class="resource-rate" id="food-rate"></span>
+                    </div>
+                    <div class="resource-item hidden" id="hide-container">
+                        <span class="resource-name">Hide</span>
+                        <span class="resource-value" id="hide-count">0</span>
+                        <span class="resource-rate" id="hide-rate"></span>
+                    </div>
+                    <div class="resource-item hidden" id="cloth-container">
+                        <span class="resource-name">Cloth</span>
+                        <span class="resource-value" id="cloth-count">0</span>
+                        <span class="resource-rate" id="cloth-rate"></span>
+                    </div>
+                    <div class="resource-item hidden" id="iron-container">
+                        <span class="resource-name">Iron</span>
+                        <span class="resource-value" id="iron-count">0</span>
+                        <span class="resource-rate" id="iron-rate"></span>
+                    </div>
+                    <div class="resource-item hidden" id="coal-container">
+                        <span class="resource-name">Coal</span>
+                        <span class="resource-value" id="coal-count">0</span>
+                        <span class="resource-rate" id="coal-rate"></span>
+                    </div>
+                    <div class="resource-item hidden" id="steel-container">
+                        <span class="resource-name">Steel</span>
+                        <span class="resource-value" id="steel-count">0</span>
+                        <span class="resource-rate" id="steel-rate"></span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Settlers (shows once a shelter is built) -->
+            <section id="population-panel" class="panel hidden">
+                <h2 class="panel-title">Settlers</h2>
+                <div id="population-stats">
+                    <div class="stat-row">
+                        <span class="stat-label">Settlers</span>
+                        <span id="population-count">0/0</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Idle</span>
+                        <span id="idle-count">0</span>
+                    </div>
+                </div>
+                <button id="assign-workers-btn" class="action-btn wide-btn">Assign Work</button>
+            </section>
+
+            <!-- Settlement stats (shows once the settlement is founded) -->
+            <section id="village-panel" class="panel hidden">
+                <h2 class="panel-title">Settlement</h2>
+                <div id="village-stats">
+                    <div class="stat-row">
+                        <span class="stat-label">Population</span>
+                        <span id="village-population">0/0</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Happiness</span>
+                        <span id="village-happiness">50</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Defense</span>
+                        <span id="village-defense">0</span>
+                    </div>
+                </div>
+            </section>
+        </aside>
+
+        <!-- Middle column: the hearth, what you can do, what you can make -->
+        <main id="game-main">
+            <section id="room-panel" class="panel">
+                <div id="hearth-container">
+                    <div id="hearth-visual">
+                        <span id="hearth-icon">🔥</span>
+                    </div>
+                    <div id="hearth-text">
+                        <span id="hearth-status-text">The hearth is cold.</span>
+                        <button id="tend-hearth-btn" class="action-btn primary-btn">Kindle the Hearth</button>
+                    </div>
+                </div>
+            </section>
+
+            <section id="actions-panel" class="panel">
+                <h2 class="panel-title">Actions</h2>
+                <div id="actions-list">
+                    <!-- Actions are added by the game -->
+                </div>
+            </section>
+
+            <section id="buildings-panel" class="panel hidden">
+                <h2 class="panel-title">Build</h2>
+                <div id="buildings-list" class="card-grid">
+                    <!-- Buildings are added by the game -->
+                </div>
+            </section>
+
+            <section id="crafting-panel" class="panel hidden">
+                <h2 class="panel-title">Craft</h2>
+                <div id="crafting-list" class="card-grid">
+                    <!-- Recipes are added by the game -->
+                </div>
+            </section>
+
+            <section id="village-buildings-panel" class="panel hidden">
+                <h2 class="panel-title">Settlement Buildings</h2>
+                <div id="village-buildings-list" class="card-grid">
+                    <!-- Settlement buildings are added by the game -->
+                </div>
+            </section>
+
+            <section id="upgrades-panel" class="panel hidden">
+                <h2 class="panel-title">Upgrades</h2>
+                <div id="upgrades-list"></div>
+            </section>
+        </main>
+
+        <!-- Right column: the log -->
+        <aside id="log-column" aria-label="Log">
+            <section id="narrative-panel" class="panel">
+                <h2 class="panel-title">Log</h2>
+                <div id="narrative-scroll">
+                    <div id="narrative-log" aria-live="polite"></div>
+                </div>
+            </section>
+        </aside>
+
+        <!-- Work assignment (popup) -->
+        <section id="worker-assignment-panel" class="hidden">
+            <div id="worker-assignment-header">
+                <h3>Assign Work</h3>
+                <button id="close-worker-assignment-btn" aria-label="Close">×</button>
+            </div>
+            <div id="worker-assignment-stats">
+                <span>Idle settlers: <span id="available-workers">0</span></span>
+            </div>
+            <div id="worker-assignment-list">
+                <!-- Worker types are added by the game -->
+            </div>
+        </section>
+
+        <!-- World Map (hidden initially) -->
+        <section id="world-map" class="hidden">
+            <div id="map-header">
+                <h3>Kaldervale</h3>
+                <button id="close-map-btn">×</button>
+            </div>
+            <div id="map-container">
+                <canvas id="map-canvas" width="400" height="400"></canvas>
+            </div>
+            <div id="map-info">
+                <p id="map-coordinates">Position: (0, 0)</p>
+                <div id="map-controls" aria-label="Move">
+                    <button class="map-move-btn" data-move="0,-1" title="North (W / ↑)">▲</button>
+                    <div class="map-move-row">
+                        <button class="map-move-btn" data-move="-1,0" title="West (A / ←)">◀</button>
+                        <button class="map-move-btn" id="map-home-btn" title="Return to the cabin">⌂</button>
+                        <button class="map-move-btn" data-move="1,0" title="East (D / →)">▶</button>
+                    </div>
+                    <button class="map-move-btn" data-move="0,1" title="South (S / ↓)">▼</button>
+                </div>
+                <p class="map-hint">Move with WASD or the arrow keys.</p>
+            </div>
+        </section>
+
+        <!-- Combat Panel (hidden initially) -->
+        <section id="combat-panel" class="hidden">
+            <div id="combat-header">
+                <h3>⚔️ Combat</h3>
+                <span id="combat-turn">Your Turn</span>
+            </div>
+            
+            <div id="combat-arena">
+                <!-- Enemy -->
+                <div id="combat-enemy">
+                    <div id="combat-enemy-name">Enemy</div>
+                    <div class="health-bar">
+                        <div class="health-bar-fill enemy-health" id="combat-enemy-health-bar"></div>
+                    </div>
+                    <div id="combat-enemy-health">0/0</div>
+                </div>
+                
+                <!-- VS -->
+                <div id="combat-vs">VS</div>
+                
+                <!-- Player -->
+                <div id="combat-player">
+                    <div id="combat-player-name">You</div>
+                    <div class="health-bar">
+                        <div class="health-bar-fill player-health" id="combat-player-health-bar"></div>
+                    </div>
+                    <div id="combat-player-health">100/100</div>
+                </div>
+            </div>
+            
+            <div id="combat-log"></div>
+            
+            <div id="combat-actions">
+                <button id="combat-attack-btn" class="combat-btn attack-btn">⚔️ Attack</button>
+                <button id="combat-defend-btn" class="combat-btn defend-btn">🛡️ Defend</button>
+                <button id="combat-item-btn" class="combat-btn item-btn" disabled>🍖 Use Item</button>
+                <button id="combat-flee-btn" class="combat-btn flee-btn">🏃 Flee</button>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer id="game-footer">
+            <button id="save-btn" class="footer-btn">Save Game</button>
+            <button id="reset-btn" class="footer-btn">Reset Game</button>
+            <button id="map-btn" class="footer-btn hidden">Explore the Valley</button>
+            <button id="journal-btn" class="footer-btn hidden">Journal</button>
+        </footer>
+
+        <!-- Journal (pages found during the story) -->
+        <section id="journal-panel" class="hidden" aria-label="Journal">
+            <div id="journal-header">
+                <h3>📜 Journal of I. Marrow</h3>
+                <button id="close-journal-btn" aria-label="Close journal">×</button>
+            </div>
+            <div id="journal-pages"></div>
+        </section>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
